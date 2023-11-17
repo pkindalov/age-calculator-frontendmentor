@@ -8,4 +8,58 @@
   margin: 8rem auto;
   border-radius: 1rem;
   border-bottom-right-radius: 15rem;
+
+
+  &__separator-and-circle {
+    border: none;
+    display: flex;
+  }
+
+  &__separator-item-line {
+    width: 75%;
+    align-self: center;
+  }
+
+  &__separator-item-circle {
+    width: 25%;
+  }
+
+  &__line {
+    border: none;
+    height: 0.1rem;
+    color: $gray-light;
+    background-color: $gray-light;
+    //border: .1px solid $gray-light;
+    //width: 100%;
+    margin-left: 4.5rem;
+  }
+
+  &__separator-circle {
+    background-color: $purple;
+    height: 10rem;
+    width: 10rem;
+    border-radius: 50%;
+
+    &:hover {
+      background-color: $black-off;
+      cursor: pointer;
+    }
+  }
+
+  &__calc-result {
+    margin-top: 4rem;
+    text-align: left;
+    font-style: italic;
+    font-weight: $bigger-font-size;
+    font-size: 7rem;
+    line-height: 7rem;
+    padding-left: 4.5rem;
+    //border: 1px solid coral;
+  }
+
+  &__span-result {
+    font-size: 7.5rem;
+    color: $purple;
+  }
+
 }

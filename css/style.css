@@ -26,6 +26,55 @@ body {
     border-bottom-right-radius: 15rem;
 }
 
+.card__separator-and-circle {
+    border: none;
+    display: flex;
+}
+
+.card__separator-item-line {
+    width: 75%;
+    align-self: center;
+}
+
+.card__separator-item-circle {
+    width: 25%;
+}
+
+.card__line {
+    border: none;
+    height: 0.1rem;
+    color: #dbdbdb;
+    background-color: #dbdbdb;
+    margin-left: 4.5rem;
+}
+
+.card__separator-circle {
+    background-color: #854dff;
+    height: 10rem;
+    width: 10rem;
+    border-radius: 50%;
+}
+
+.card__separator-circle:hover {
+    background-color: #141414;
+    cursor: pointer;
+}
+
+.card__calc-result {
+    margin-top: 4rem;
+    text-align: left;
+    font-style: italic;
+    font-weight: 800;
+    font-size: 7rem;
+    line-height: 7rem;
+    padding-left: 4.5rem;
+}
+
+.card__span-result {
+    font-size: 7.5rem;
+    color: #854dff;
+}
+
 .datepicker {
     display: flex;
     flex-direction: row;
