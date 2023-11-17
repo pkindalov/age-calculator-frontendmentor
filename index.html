@@ -14,6 +14,32 @@
 </head>
 <body>
 
+<section class="age-calc-cont">
+    <div class="card">
+        <div class="datepicker">
+            <div class="datepicker__controls">
+                <label class="datepicker__label" for="day">DAY</label>
+                <input class="datepicker__input" type="text"
+                       name="day" id="day" placeholder="DD"/>
+            </div>
+            <div class="datepicker__controls">
+                <label class="datepicker__label" for="month">MONTH</label>
+                <input class="datepicker__input" onfocus="(this.type='month')"
+                       onblur="(this.type='text')" type="text"
+                       name="month" id="month"
+                       placeholder="MM"/>
+            </div>
+            <div class="datepicker__controls">
+                <label class="datepicker__label" for="year">YEAR</label>
+                <input class="datepicker__input" onfocus="(this.value=new Date().getFullYear())"
+                       type="number"
+                       min="1900" max="2100" step="1"
+                       value="YYYY" name="year"
+                       id="year" placeholder="YYYY"/>
+            </div>
+        </div>
+    </div>
+</section>
 
 <div class="attribution">
     Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend

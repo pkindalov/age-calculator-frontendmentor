@@ -1,0 +1,43 @@
+.datepicker {
+  display: flex;
+  flex-direction: row;
+  color: $gray-smokey;
+  //background-color: greenyellow;
+  width: 90%;
+  height: 11rem;
+  align-self: center;
+  gap: 1rem;
+
+  &__controls {
+    //border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    width: 20%;
+    margin-top: 2.3rem;
+    //margin-top: 0.5rem;
+    height: 70%;
+  }
+
+  &__label {
+    padding-bottom: 0.5rem;
+  }
+
+  &__input {
+    height: 80%;
+    border: 1px solid $gray-light;
+    border-radius: 0.5rem;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: $black-off;
+    padding-left: 1rem;
+    caret-color: $purple;
+    caret-shape: block;
+
+    //&::placeholder {}
+
+    &:focus {
+      outline: .1rem solid $purple;
+    }
+  }
+}
