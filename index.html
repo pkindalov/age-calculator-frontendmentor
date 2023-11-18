@@ -19,13 +19,12 @@
         <div class="datepicker">
             <div class="datepicker__controls">
                 <label class="datepicker__label" for="day">DAY</label>
-                <input class="datepicker__input" type="text"
+                <input class="datepicker__input" type="number"
                        name="day" id="day" placeholder="DD"/>
             </div>
             <div class="datepicker__controls">
                 <label class="datepicker__label" for="month">MONTH</label>
-                <input class="datepicker__input" onfocus="(this.type='month')"
-                       onblur="(this.type='text')" type="text"
+                <input class="datepicker__input" type="number"
                        name="month" id="month"
                        placeholder="MM"/>
             </div>
@@ -44,18 +43,20 @@
             </div>
             <div class="card__separator-item-circle">
                 <!--            Circle element here-->
-                <div class="card__separator-circle"></div>
+                <div class="card__separator-circle">
+                    <img class="card__circle-figure" src="/assets/images/icon-arrow.svg" alt="">
+                </div>
             </div>
         </div>
         <div class="card__calc-result">
             <div class="card__years">
-                <span class="card__span-result">--</span> years
+                <span class="card__span-result">- -</span> years
             </div>
             <div class="card__months">
-                <span class="card__span-result">--</span> months
+                <span class="card__span-result">- -</span> months
             </div>
             <div class="card__days">
-                <span class="card__span-result">--</span> days
+                <span class="card__span-result">- -</span> days
             </div>
         </div>
     </div>

@@ -46,13 +46,18 @@
     }
   }
 
+  &__circle-figure {
+    height: 10rem;
+    width: 10rem;
+  }
+
   &__calc-result {
     margin-top: 4rem;
     text-align: left;
     font-style: italic;
     font-weight: $bigger-font-size;
     font-size: 7rem;
-    line-height: 7rem;
+    line-height: 8rem;
     padding-left: 4.5rem;
     //border: 1px solid coral;
   }
