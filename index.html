@@ -7,7 +7,7 @@
 
     <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
     <link rel="stylesheet" href="css/style.css"/>
-
+    <script src="js/index.js" type="module" defer></script>
     <title>Frontend Mentor | Age calculator app</title>
 
 
@@ -18,23 +18,27 @@
     <div class="card">
         <div class="datepicker">
             <div class="datepicker__controls">
-                <label class="datepicker__label" for="day">DAY</label>
-                <input class="datepicker__input" type="number"
-                       name="day" id="day" placeholder="DD"/>
+                <label class="datepicker__label js-datepicker__label--day" for="day">DAY</label>
+                <input class="datepicker__input js-date" type="number"
+                       name="day" id="day" placeholder="DD" min="1" max="31"/>
+                <span class="datepicker__day js-date-err u-error u-hidden"></span>
             </div>
             <div class="datepicker__controls">
-                <label class="datepicker__label" for="month">MONTH</label>
-                <input class="datepicker__input" type="number"
+                <label class="datepicker__label js-datepicker__label--month" for="month">MONTH</label>
+                <input class="datepicker__input js-month" type="number"
                        name="month" id="month"
                        placeholder="MM"/>
+                <span class="datepicker__month js-month-err u-error u-hidden"></span>
             </div>
             <div class="datepicker__controls">
-                <label class="datepicker__label" for="year">YEAR</label>
-                <input class="datepicker__input" onfocus="(this.value=new Date().getFullYear())"
+                <label class="datepicker__label js-datepicker__label--year" for="year">YEAR</label>
+                <input class="datepicker__input js-year"
+                       onfocus="(this.value=new Date().getFullYear())"
                        type="number"
                        min="1900" max="2100" step="1"
                        value="YYYY" name="year"
                        id="year" placeholder="YYYY"/>
+                <span class="datepicker__year js-year-err u-error u-hidden"></span>
             </div>
         </div>
         <div class="card__separator-and-circle">
@@ -43,7 +47,7 @@
             </div>
             <div class="card__separator-item-circle">
                 <!--            Circle element here-->
-                <div class="card__separator-circle">
+                <div class="card__separator-circle js-calc-btn">
                     <img class="card__circle-figure" src="/assets/images/icon-arrow.svg" alt="">
                 </div>
             </div>

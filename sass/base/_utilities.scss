@@ -10,4 +10,16 @@
   padding-top: 5rem;
 }
 
+.u-hidden {
+  visibility: hidden;
+}
 
+.u-error,
+  //.u-error-input,
+.u-error-label {
+  color: $red-light;
+}
+
+.u-error-input {
+  border: 1px solid $red-light;
+}

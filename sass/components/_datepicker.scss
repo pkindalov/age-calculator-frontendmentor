@@ -4,7 +4,7 @@
   color: $gray-smokey;
   //background-color: greenyellow;
   width: 90%;
-  height: 11rem;
+  height: 13rem;
   align-self: center;
   gap: 1rem;
 
@@ -16,7 +16,7 @@
     width: 20%;
     margin-top: 2.3rem;
     //margin-top: 0.5rem;
-    height: 70%;
+    //height: 70%;
   }
 
   &__label {
@@ -24,7 +24,7 @@
   }
 
   &__input {
-    height: 80%;
+    height: 100%;
     border: 1px solid $gray-light;
     border-radius: 0.5rem;
     font-size: 2.2rem;
@@ -40,4 +40,12 @@
       outline: .1rem solid $purple;
     }
   }
+
+  &__day,
+  &__month,
+  &__year {
+    height: 1rem;
+    padding-top: 1rem;
+  }
+
 }
