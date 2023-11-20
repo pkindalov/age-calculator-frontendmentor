@@ -66,30 +66,15 @@ const addRemoveCls = ({ el, clsName, operation = "add" }) => {
 
 // const checkIsNumber = (str) => !isNaN(str);
 
-const validate = () => {
-  //span containing error messages
-  const [dayErrEl] = document.getElementsByClassName(dayErrCls);
-  const [monthErrEl] = document.getElementsByClassName(monthErrCls);
-  const [yearErrEl] = document.getElementsByClassName(yearErrCls);
-
-  //inputs
+const dayValidators = () => {
   const [dayInput] = document.getElementsByClassName(dayFieldCls);
-  const [monthInput] = document.getElementsByClassName(monthFieldCls);
-  const [yearInput] = document.getElementsByClassName(yearFieldCls);
-
-  //labels on top of inputs
+  const [dayErrEl] = document.getElementsByClassName(dayErrCls);
   const [dayLabel] = document.getElementsByClassName(dayLabelCls);
-  const [monthLabel] = document.getElementsByClassName(monthLabelCls);
-  const [yearLabel] = document.getElementsByClassName(yearLabelCls);
-
-  if (!dayErrEl) throw new Error("Day error span element is missing");
-  if (!monthErrEl) throw new Error("Month error span element is missing");
-  if (!yearErrEl) throw new Error("Year error span element is missing");
-
+  if (!dayInput) throw new Error("Day error input not found!");
+  if (!dayErrEl) throw new Error("Day error span element is missing!");
+  if (!dayLabel) throw new Error("Day label is not found!");
   let isValid = true;
   let msg;
-
-  //Day field checks
   if (!dayField.value) {
     isValid = false;
     msg = "This field is required";
@@ -111,24 +96,32 @@ const validate = () => {
       isValid = false;
       msg = "This number is invalid";
       dayErrEl.innerText = msg;
-      // makeVisibe(dayErrEl);
       addRemoveCls({ el: dayErrEl, clsName: hiddenCls, operation: "remove" });
       addRemoveCls({ el: dayInput, clsName: inputErrCls, operation: "add" });
       addRemoveCls({ el: dayLabel, clsName: labelErrCls, operation: "add" });
     } else {
-      // makeHidden(dayErrEl);
       addRemoveCls({ el: dayErrEl, clsName: hiddenCls, operation: "add" });
       addRemoveCls({ el: dayInput, clsName: inputErrCls, operation: "remove" });
       addRemoveCls({ el: dayLabel, clsName: labelErrCls, operation: "remove" });
     }
   }
 
-  //Month field checks
+  return isValid;
+};
+
+const monthValidators = () => {
+  const [monthInput] = document.getElementsByClassName(monthFieldCls);
+  const [monthErrEl] = document.getElementsByClassName(monthErrCls);
+  const [monthLabel] = document.getElementsByClassName(monthLabelCls);
+  if (!monthInput) throw new Error("Month error input not found!");
+  if (!monthErrEl) throw new Error("Month error span element is missing!");
+  if (!monthLabel) throw new Error("Month label is not found!");
+  let isValid = true;
+  let msg;
   if (!monthField.value) {
     isValid = false;
     msg = "This field is required";
     monthErrEl.innerText = msg;
-    // makeVisibe(monthErrEl);
     addRemoveCls({ el: monthErrEl, clsName: hiddenCls, operation: "remove" });
     addRemoveCls({ el: monthInput, clsName: inputErrCls, operation: "add" });
     addRemoveCls({ el: monthLabel, clsName: labelErrCls, operation: "add" });
@@ -139,30 +132,235 @@ const validate = () => {
     addRemoveCls({ el: monthLabel, clsName: labelErrCls, operation: "remove" });
   }
 
-  //Year fields checks
+  if (monthField.value) {
+    const monthNumber = +monthField.value;
+    if (monthNumber < 1 || monthNumber > 12) {
+      isValid = false;
+      msg = "Must be a valid month";
+      monthErrEl.innerText = msg;
+      addRemoveCls({ el: monthErrEl, clsName: hiddenCls, operation: "remove" });
+      addRemoveCls({ el: monthInput, clsName: inputErrCls, operation: "add" });
+      addRemoveCls({ el: monthLabel, clsName: labelErrCls, operation: "add" });
+    } else {
+      addRemoveCls({ el: monthErrEl, clsName: hiddenCls, operation: "add" });
+      addRemoveCls({
+        el: monthInput,
+        clsName: inputErrCls,
+        operation: "remove",
+      });
+      addRemoveCls({
+        el: monthLabel,
+        clsName: labelErrCls,
+        operation: "remove",
+      });
+    }
+  }
+  return isValid;
+};
+
+const yearValidators = () => {
+  const [yearInput] = document.getElementsByClassName(yearFieldCls);
+  const [yearErrEl] = document.getElementsByClassName(yearErrCls);
+  const [yearLabel] = document.getElementsByClassName(yearLabelCls);
+  if (!yearInput) throw new Error("Year error input not found!");
+  if (!yearErrEl) throw new Error("Year error span element is missing!");
+  if (!yearLabel) throw new Error("Year label is not found!");
+  let isValid = true;
+  let msg;
   if (!yearField.value) {
     isValid = false;
     msg = "This field is required";
     yearErrEl.innerText = msg;
-    // makeVisibe(yearErrEl);
     addRemoveCls({ el: yearErrEl, clsName: hiddenCls, operation: "remove" });
     addRemoveCls({ el: yearInput, clsName: inputErrCls, operation: "add" });
     addRemoveCls({ el: yearLabel, clsName: labelErrCls, operation: "add" });
   } else {
-    // makeHidden(yearErrEl);
     addRemoveCls({ el: yearErrEl, clsName: hiddenCls, operation: "add" });
     addRemoveCls({ el: yearInput, clsName: inputErrCls, operation: "remove" });
     addRemoveCls({ el: yearLabel, clsName: labelErrCls, operation: "remove" });
   }
 
-  // if (checkIsNumber(dayField.value)) {
+  if (yearField.value) {
+    const yearNumber = +yearField.value;
+    const currentYear = new Date().getFullYear();
+    if (Math.abs(currentYear - yearNumber) > 100) {
+      isValid = false;
+      msg = "Must be in the past";
+      yearErrEl.innerText = msg;
+      addRemoveCls({ el: yearErrEl, clsName: hiddenCls, operation: "remove" });
+      addRemoveCls({ el: yearInput, clsName: inputErrCls, operation: "add" });
+      addRemoveCls({ el: yearLabel, clsName: labelErrCls, operation: "add" });
+    } else {
+      addRemoveCls({ el: yearErrEl, clsName: hiddenCls, operation: "add" });
+      addRemoveCls({
+        el: yearInput,
+        clsName: inputErrCls,
+        operation: "remove",
+      });
+      addRemoveCls({
+        el: yearLabel,
+        clsName: labelErrCls,
+        operation: "remove",
+      });
+    }
+  }
+  return isValid;
+};
+
+const validate = () => {
+  //span containing error messages
+  // const [dayErrEl] = document.getElementsByClassName(dayErrCls);
+  // const [monthErrEl] = document.getElementsByClassName(monthErrCls);
+  // const [yearErrEl] = document.getElementsByClassName(yearErrCls);
+
+  //inputs
+  // const [dayInput] = document.getElementsByClassName(dayFieldCls);
+  // const [monthInput] = document.getElementsByClassName(monthFieldCls);
+  // const [yearInput] = document.getElementsByClassName(yearFieldCls);
+
+  //labels on top of inputs
+  // const [dayLabel] = document.getElementsByClassName(dayLabelCls);
+  // const [monthLabel] = document.getElementsByClassName(monthLabelCls);
+  // const [yearLabel] = document.getElementsByClassName(yearLabelCls);
+
+  // if (!dayErrEl) throw new Error("Day error span element is missing");
+  // if (!monthErrEl) throw new Error("Month error span element is missing");
+  // if (!yearErrEl) throw new Error("Year error span element is missing");
+
+  let isValid = true;
+  let msg;
+
+  isValid = dayValidators() && monthValidators() && yearValidators();
+  //Day field checks
+  // if (!dayField.value) {
   //   isValid = false;
-  //   msg = "The provided value is not a number.";
+  //   msg = "This field is required";
   //   dayErrEl.innerText = msg;
-  //   makeVisibe(dayErrEl);
+  //   // makeVisibe(dayErrEl);
+  //   addRemoveCls({ el: dayErrEl, clsName: hiddenCls, operation: "remove" });
+  //   addRemoveCls({ el: dayInput, clsName: inputErrCls, operation: "add" });
+  //   addRemoveCls({ el: dayLabel, clsName: labelErrCls, operation: "add" });
   // } else {
-  //   makeHidden(dayErrEl);
+  //   // makeHidden(dayErrEl);
+  //   addRemoveCls({ el: dayErrEl, clsName: hiddenCls, operation: "add" });
+  //   addRemoveCls({ el: dayInput, clsName: inputErrCls, operation: "remove" });
+  //   addRemoveCls({ el: dayLabel, clsName: labelErrCls, operation: "remove" });
   // }
+
+  // if (dayField.value) {
+  //   const dayNumber = +dayField.value;
+  //   if (dayNumber < 1 || dayNumber > 31) {
+  //     isValid = false;
+  //     msg = "This number is invalid";
+  //     dayErrEl.innerText = msg;
+  //     // makeVisibe(dayErrEl);
+  //     addRemoveCls({ el: dayErrEl, clsName: hiddenCls, operation: "remove" });
+  //     addRemoveCls({ el: dayInput, clsName: inputErrCls, operation: "add" });
+  //     addRemoveCls({ el: dayLabel, clsName: labelErrCls, operation: "add" });
+  //   } else {
+  //     // makeHidden(dayErrEl);
+  //     addRemoveCls({ el: dayErrEl, clsName: hiddenCls, operation: "add" });
+  //     addRemoveCls({ el: dayInput, clsName: inputErrCls, operation: "remove" });
+  //     addRemoveCls({ el: dayLabel, clsName: labelErrCls, operation: "remove" });
+  //   }
+  // }
+
+  //Month field checks
+  // if (!monthField.value) {
+  //   isValid = false;
+  //   msg = "This field is required";
+  //   monthErrEl.innerText = msg;
+  //   // makeVisibe(monthErrEl);
+  //   addRemoveCls({ el: monthErrEl, clsName: hiddenCls, operation: "remove" });
+  //   addRemoveCls({ el: monthInput, clsName: inputErrCls, operation: "add" });
+  //   addRemoveCls({ el: monthLabel, clsName: labelErrCls, operation: "add" });
+  // } else {
+  //   // makeHidden(monthErrEl);
+  //   addRemoveCls({ el: monthErrEl, clsName: hiddenCls, operation: "add" });
+  //   addRemoveCls({ el: monthInput, clsName: inputErrCls, operation: "remove" });
+  //   addRemoveCls({ el: monthLabel, clsName: labelErrCls, operation: "remove" });
+  // }
+
+  // if (monthField.value) {
+  //   const monthNumber = +monthField.value;
+  //   if (monthNumber < 1 || monthNumber > 12) {
+  //     isValid = false;
+  //     msg = "Must be a valid month";
+  //     monthErrEl.innerText = msg;
+  //     addRemoveCls({ el: monthErrEl, clsName: hiddenCls, operation: "remove" });
+  //     addRemoveCls({ el: monthInput, clsName: inputErrCls, operation: "add" });
+  //     addRemoveCls({ el: monthLabel, clsName: labelErrCls, operation: "add" });
+  //   } else {
+  //     addRemoveCls({ el: monthErrEl, clsName: hiddenCls, operation: "add" });
+  //     addRemoveCls({
+  //       el: monthInput,
+  //       clsName: inputErrCls,
+  //       operation: "remove",
+  //     });
+  //     addRemoveCls({
+  //       el: monthLabel,
+  //       clsName: labelErrCls,
+  //       operation: "remove",
+  //     });
+  //   }
+  // }
+
+  //Year fields checks
+  // if (!yearField.value) {
+  //   isValid = false;
+  //   msg = "This field is required";
+  //   yearErrEl.innerText = msg;
+  //   // makeVisibe(yearErrEl);
+  //   addRemoveCls({ el: yearErrEl, clsName: hiddenCls, operation: "remove" });
+  //   addRemoveCls({ el: yearInput, clsName: inputErrCls, operation: "add" });
+  //   addRemoveCls({ el: yearLabel, clsName: labelErrCls, operation: "add" });
+  // } else {
+  //   // makeHidden(yearErrEl);
+  //   addRemoveCls({ el: yearErrEl, clsName: hiddenCls, operation: "add" });
+  //   addRemoveCls({ el: yearInput, clsName: inputErrCls, operation: "remove" });
+  //   addRemoveCls({ el: yearLabel, clsName: labelErrCls, operation: "remove" });
+  // }
+
+  // if (yearField.value) {
+  //   const yearNumber = +yearField.value;
+  //   const currentYear = new Date().getFullYear();
+  //   if (Math.abs(currentYear - yearNumber) > 100) {
+  //     isValid = false;
+  //     msg = "Must be in the past";
+  //     yearErrEl.innerText = msg;
+  //     addRemoveCls({ el: yearErrEl, clsName: hiddenCls, operation: "remove" });
+  //     addRemoveCls({ el: yearInput, clsName: inputErrCls, operation: "add" });
+  //     addRemoveCls({ el: yearLabel, clsName: labelErrCls, operation: "add" });
+  //   } else {
+  //     addRemoveCls({ el: yearErrEl, clsName: hiddenCls, operation: "add" });
+  //     addRemoveCls({
+  //       el: yearInput,
+  //       clsName: inputErrCls,
+  //       operation: "remove",
+  //     });
+  //     addRemoveCls({
+  //       el: yearLabel,
+  //       clsName: labelErrCls,
+  //       operation: "remove",
+  //     });
+  //   }
+  // }
+
+  if (isValid) {
+    const userDate = new Date(
+      yearField.value + "-" + monthField.value + "-" + dayField.value,
+    );
+    const lastMonthDate = new Date(
+      userDate.getFullYear(),
+      userDate.getMonth(),
+      0,
+    );
+    const monthNumberOfDays = lastMonthDate.getDate();
+    if (+dayField.value > monthNumberOfDays) {
+    } else {
+    }
+    // console.log(lastMonthDate, monthNumberOfDays);
+  }
 
   return isValid;
 };
