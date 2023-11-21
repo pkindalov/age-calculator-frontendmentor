@@ -32,7 +32,37 @@ let userDay = 24;
 let userMonth = 9;
 let userYear = 1984;
 
-export const initCalcAge = () => activateCalcBtn();
+export const initCalcAge = () => {
+  dateInputsInitialization();
+  activateCalcBtn();
+};
+
+const clearDayField = () => {
+  const [dayInput] = document.getElementsByClassName(dayFieldCls);
+  const [dayErrEl] = document.getElementsByClassName(dayErrCls);
+  const [dayLabel] = document.getElementsByClassName(dayLabelCls);
+  addRemoveCls({ el: dayErrEl, clsName: hiddenCls, operation: "add" });
+  addRemoveCls({ el: dayInput, clsName: inputErrCls, operation: "remove" });
+  addRemoveCls({ el: dayLabel, clsName: labelErrCls, operation: "remove" });
+};
+
+const clearMonthField = () => {
+  const [monthInput] = document.getElementsByClassName(monthFieldCls);
+  const [monthErrEl] = document.getElementsByClassName(monthErrCls);
+  const [monthLabel] = document.getElementsByClassName(monthLabelCls);
+  addRemoveCls({ el: monthErrEl, clsName: hiddenCls, operation: "add" });
+  addRemoveCls({ el: monthInput, clsName: inputErrCls, operation: "remove" });
+  addRemoveCls({ el: monthLabel, clsName: labelErrCls, operation: "remove" });
+};
+
+const clearYearField = () => {
+  const [yearInput] = document.getElementsByClassName(yearFieldCls);
+  const [yearErrEl] = document.getElementsByClassName(yearErrCls);
+  const [yearLabel] = document.getElementsByClassName(yearLabelCls);
+  addRemoveCls({ el: yearErrEl, clsName: hiddenCls, operation: "add" });
+  addRemoveCls({ el: yearInput, clsName: inputErrCls, operation: "remove" });
+  addRemoveCls({ el: yearLabel, clsName: labelErrCls, operation: "remove" });
+};
 
 const dateInputsInitialization = () => {
   const [dayInput] = document.getElementsByClassName(dayFieldCls);
@@ -44,6 +74,37 @@ const dateInputsInitialization = () => {
   dayField = dayInput;
   monthField = monthInput;
   yearField = yearInput;
+  //TODO put focus and blur listeners on all inputs
+
+  if (!dayInput.hasFocusListener) {
+    dayInput.addEventListener("focus", clearDayField);
+    dayInput.hasFocusListener = true;
+  }
+
+  if (!dayInput.hasBlurListener) {
+    dayInput.addEventListener("blur", dayValidators);
+    dayInput.hasBlurListener = true;
+  }
+
+  if (!monthInput.hasFocusListener) {
+    monthInput.addEventListener("focus", clearMonthField);
+    monthInput.hasFocusListener = true;
+  }
+
+  if (!monthInput.hasBlurListener) {
+    monthInput.addEventListener("blur", monthValidators);
+    monthInput.hasBlurListener = true;
+  }
+
+  if (!yearInput.hasFocusListener) {
+    yearInput.addEventListener("focus", clearYearField);
+    yearInput.hasFocusListener = true;
+  }
+
+  if (!yearInput.hasBlurListener) {
+    yearInput.addEventListener("blur", yearValidators);
+    yearInput.hasBlurListener = true;
+  }
 };
 
 const addRemoveCls = ({ el, clsName, operation = "add" }) => {
@@ -84,10 +145,7 @@ const dayValidators = () => {
     addRemoveCls({ el: dayInput, clsName: inputErrCls, operation: "add" });
     addRemoveCls({ el: dayLabel, clsName: labelErrCls, operation: "add" });
   } else {
-    // makeHidden(dayErrEl);
-    addRemoveCls({ el: dayErrEl, clsName: hiddenCls, operation: "add" });
-    addRemoveCls({ el: dayInput, clsName: inputErrCls, operation: "remove" });
-    addRemoveCls({ el: dayLabel, clsName: labelErrCls, operation: "remove" });
+    clearDayField();
   }
 
   if (dayField.value) {
@@ -100,9 +158,7 @@ const dayValidators = () => {
       addRemoveCls({ el: dayInput, clsName: inputErrCls, operation: "add" });
       addRemoveCls({ el: dayLabel, clsName: labelErrCls, operation: "add" });
     } else {
-      addRemoveCls({ el: dayErrEl, clsName: hiddenCls, operation: "add" });
-      addRemoveCls({ el: dayInput, clsName: inputErrCls, operation: "remove" });
-      addRemoveCls({ el: dayLabel, clsName: labelErrCls, operation: "remove" });
+      clearDayField();
     }
   }
 
@@ -126,10 +182,7 @@ const monthValidators = () => {
     addRemoveCls({ el: monthInput, clsName: inputErrCls, operation: "add" });
     addRemoveCls({ el: monthLabel, clsName: labelErrCls, operation: "add" });
   } else {
-    // makeHidden(monthErrEl);
-    addRemoveCls({ el: monthErrEl, clsName: hiddenCls, operation: "add" });
-    addRemoveCls({ el: monthInput, clsName: inputErrCls, operation: "remove" });
-    addRemoveCls({ el: monthLabel, clsName: labelErrCls, operation: "remove" });
+    clearMonthField();
   }
 
   if (monthField.value) {
@@ -142,17 +195,7 @@ const monthValidators = () => {
       addRemoveCls({ el: monthInput, clsName: inputErrCls, operation: "add" });
       addRemoveCls({ el: monthLabel, clsName: labelErrCls, operation: "add" });
     } else {
-      addRemoveCls({ el: monthErrEl, clsName: hiddenCls, operation: "add" });
-      addRemoveCls({
-        el: monthInput,
-        clsName: inputErrCls,
-        operation: "remove",
-      });
-      addRemoveCls({
-        el: monthLabel,
-        clsName: labelErrCls,
-        operation: "remove",
-      });
+      clearMonthField();
     }
   }
   return isValid;
@@ -175,9 +218,7 @@ const yearValidators = () => {
     addRemoveCls({ el: yearInput, clsName: inputErrCls, operation: "add" });
     addRemoveCls({ el: yearLabel, clsName: labelErrCls, operation: "add" });
   } else {
-    addRemoveCls({ el: yearErrEl, clsName: hiddenCls, operation: "add" });
-    addRemoveCls({ el: yearInput, clsName: inputErrCls, operation: "remove" });
-    addRemoveCls({ el: yearLabel, clsName: labelErrCls, operation: "remove" });
+    clearYearField();
   }
 
   if (yearField.value) {
@@ -191,24 +232,14 @@ const yearValidators = () => {
       addRemoveCls({ el: yearInput, clsName: inputErrCls, operation: "add" });
       addRemoveCls({ el: yearLabel, clsName: labelErrCls, operation: "add" });
     } else {
-      addRemoveCls({ el: yearErrEl, clsName: hiddenCls, operation: "add" });
-      addRemoveCls({
-        el: yearInput,
-        clsName: inputErrCls,
-        operation: "remove",
-      });
-      addRemoveCls({
-        el: yearLabel,
-        clsName: labelErrCls,
-        operation: "remove",
-      });
+      clearYearField();
     }
   }
   return isValid;
 };
 
 const validate = () => {
-  let isValid = true;
+  let isValid;
   let msg;
   isValid = dayValidators() && monthValidators() && yearValidators();
 
@@ -276,7 +307,7 @@ const makeCalculations = () => {
 };
 
 const calcAge = () => {
-  dateInputsInitialization();
+  // dateInputsInitialization();
   //TODO to finish this later
   const isUserDataValid = validate();
   if (!isUserDataValid) return;
