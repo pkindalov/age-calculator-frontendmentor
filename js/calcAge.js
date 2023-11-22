@@ -20,6 +20,11 @@ const yearErrCls = "js-year-err";
 
 const calcBtnCls = "js-calc-btn";
 
+//result fields css classes
+const resultYearsCls = "js-card__result-years";
+const resultMonthsCls = "js-card__result-months";
+const resultDaysCls = "js-card__result-days";
+
 //keep the input html element
 
 let dayField;
@@ -28,9 +33,9 @@ let yearField;
 
 //date values
 //TODO to reset values to undefined after test
-let userDay = 24;
-let userMonth = 9;
-let userYear = 1984;
+// let userDay;
+// let userMonth;
+// let userYea;
 
 export const initCalcAge = () => {
   dateInputsInitialization();
@@ -74,7 +79,6 @@ const dateInputsInitialization = () => {
   dayField = dayInput;
   monthField = monthInput;
   yearField = yearInput;
-  //TODO put focus and blur listeners on all inputs
 
   if (!dayInput.hasFocusListener) {
     dayInput.addEventListener("focus", clearDayField);
@@ -114,18 +118,6 @@ const addRemoveCls = ({ el, clsName, operation = "add" }) => {
   }
   if (el.classList.contains(clsName)) el.classList.remove(clsName);
 };
-
-// const makeVisibe = (dayErrEl) => {
-//   if (dayErrEl.classList.contains(hiddenCls))
-//     dayErrEl.classList.remove(hiddenCls);
-// };
-//
-// const makeHidden = (dayErrEl) => {
-//   if (!dayErrEl.classList.contains(hiddenCls))
-//     dayErrEl.classList.add(hiddenCls);
-// };
-
-// const checkIsNumber = (str) => !isNaN(str);
 
 const dayValidators = () => {
   const [dayInput] = document.getElementsByClassName(dayFieldCls);
@@ -274,45 +266,62 @@ const validate = () => {
 };
 
 const makeCalculations = () => {
-  const userDate = userYear + "-" + userMonth + "-" + userDay;
+  const [userDay] = document.getElementsByClassName(dayFieldCls);
+  const [userMonth] = document.getElementsByClassName(monthFieldCls);
+  const [userYear] = document.getElementsByClassName(yearFieldCls);
+
+  const userDate = userYear.value + "-" + userMonth.value + "-" + userDay.value;
 
   // Convert birthdate and currentDate to Date objects
   const birthDateObject = new Date(userDate);
+  // const currentDateObject = new Date("2023-11-15");
   const currentDateObject = new Date();
 
-  // Calculate the difference in years, months, and days
+  //
+  // // Calculate the difference in years, months, and days
   let ageYears =
     currentDateObject.getFullYear() - birthDateObject.getFullYear();
-  let ageMonths = currentDateObject.getMonth() - birthDateObject.getMonth();
-  let ageDays = currentDateObject.getDate() - birthDateObject.getDate();
+  let ageMonths = 0;
+  let ageDays = 0;
 
-  // If the day of the birthdate is greater than the day of the currentDate
-  if (ageDays < 0) {
-    // Calculate the total days in the previous month
-    ageDays += new Date(
+  if (currentDateObject.getDate() < birthDateObject.getDate()) {
+    ageMonths =
+      Math.abs(currentDateObject.getMonth() - birthDateObject.getMonth()) - 1;
+    const prevMont = new Date(
       currentDateObject.getFullYear(),
       currentDateObject.getMonth(),
       0,
-    ).getDate();
-    ageMonths--; // Subtract 1 from months
-
-    // If the month of the birthdate is greater than the month of the currentDate
-    if (ageMonths < 0) {
-      ageMonths += 12; // Add 12 to months
-      ageYears--; // Subtract 1 from years
-    }
+    );
+    const prevMonthDays = prevMont.getDate();
+    ageDays =
+      prevMonthDays - (birthDateObject.getDate() - currentDateObject.getDate());
+    console.log("days: " + ageDays);
+  } else {
+    ageMonths = currentDateObject.getMonth() - birthDateObject.getMonth();
+    ageDays = currentDateObject.getDate() - birthDateObject.getDate();
   }
 
   return { years: ageYears, months: ageMonths, days: ageDays };
 };
 
+const showResults = ({ years, months, days }) => {
+  const [resultYearsField] = document.getElementsByClassName(resultYearsCls);
+  const [resultMonthsField] = document.getElementsByClassName(resultMonthsCls);
+  const [resultDaysField] = document.getElementsByClassName(resultDaysCls);
+  if (!resultYearsField || !resultMonthsField || !resultDaysField)
+    throw new Error("years, months" + " or days field is missing.");
+  resultYearsField.innerText = years;
+  resultMonthsField.innerText = months;
+  resultDaysField.innerText = days;
+  console.log(years, months, days);
+};
+
 const calcAge = () => {
-  // dateInputsInitialization();
-  //TODO to finish this later
   const isUserDataValid = validate();
   if (!isUserDataValid) return;
-  // const { years, months, days} = makeCalculations();
-  //  console.log(years, months, days);
+  const { years, months, days } = makeCalculations();
+  //TODO to finish this later
+  showResults({ years, months, days });
 };
 
 const activateCalcBtn = async () => {
