@@ -6,6 +6,9 @@
     <!-- displays site properly based on user's device -->
 
     <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
     <link rel="stylesheet" href="css/style.css"/>
     <script src="js/index.js" type="module" defer></script>
     <title>Frontend Mentor | Age calculator app</title>
@@ -15,24 +18,24 @@
 <body>
 
 <section class="age-calc-cont">
-    <div class="card">
+    <div class="card animate__animated animate__bounce">
         <div class="datepicker">
             <div class="datepicker__controls">
                 <label class="datepicker__label js-datepicker__label--day" for="day">DAY</label>
                 <input class="datepicker__input js-date" type="number"
                        name="day" id="day" placeholder="DD" min="1" max="31"/>
-                <span class="datepicker__day js-date-err u-error u-hidden"></span>
+                <span class="datepicker__day js-date-err u-error u-hidden animate__animated"></span>
             </div>
             <div class="datepicker__controls">
                 <label class="datepicker__label js-datepicker__label--month" for="month">MONTH</label>
-                <input class="datepicker__input js-month" type="number"
+                <input class="datepicker__input js-month animate__animated" type="number"
                        name="month" id="month"
                        placeholder="MM"/>
                 <span class="datepicker__month js-month-err u-error u-hidden"></span>
             </div>
             <div class="datepicker__controls">
                 <label class="datepicker__label js-datepicker__label--year" for="year">YEAR</label>
-                <input class="datepicker__input js-year"
+                <input class="datepicker__input js-year animate__animated"
                        type="number"
                        min="1900" max="2100" step="1"
                        value="YYYY" name="year"
@@ -53,13 +56,15 @@
         </div>
         <div class="card__calc-result">
             <div class="card__years">
-                <span class="card__span-result js-card__result-years">- -</span> years
+                <span class="card__span-result js-card__result-years animate__animated">- -</span>
+                years
             </div>
             <div class="card__months">
-                <span class="card__span-result js-card__result-months">- -</span> months
+                <span class="card__span-result js-card__result-months animate__animated">- -</span>
+                months
             </div>
             <div class="card__days">
-                <span class="card__span-result js-card__result-days">- -</span> days
+                <span class="card__span-result js-card__result-days animate__animated">- -</span> days
             </div>
         </div>
     </div>

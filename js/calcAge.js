@@ -31,11 +31,8 @@ let dayField;
 let monthField;
 let yearField;
 
-//date values
-//TODO to reset values to undefined after test
-// let userDay;
-// let userMonth;
-// let userYea;
+//animation classes
+const errorInputsCls = "animate__heartBeat";
 
 export const initCalcAge = () => {
   dateInputsInitialization();
@@ -47,6 +44,11 @@ const clearDayField = () => {
   const [dayErrEl] = document.getElementsByClassName(dayErrCls);
   const [dayLabel] = document.getElementsByClassName(dayLabelCls);
   addRemoveCls({ el: dayErrEl, clsName: hiddenCls, operation: "add" });
+  addRemoveCls({
+    el: dayErrEl,
+    clsName: errorInputsCls,
+    operation: "remove",
+  });
   addRemoveCls({ el: dayInput, clsName: inputErrCls, operation: "remove" });
   addRemoveCls({ el: dayLabel, clsName: labelErrCls, operation: "remove" });
 };
@@ -55,6 +57,11 @@ const clearMonthField = () => {
   const [monthInput] = document.getElementsByClassName(monthFieldCls);
   const [monthErrEl] = document.getElementsByClassName(monthErrCls);
   const [monthLabel] = document.getElementsByClassName(monthLabelCls);
+  addRemoveCls({
+    el: monthErrEl,
+    clsName: errorInputsCls,
+    operation: "remove",
+  });
   addRemoveCls({ el: monthErrEl, clsName: hiddenCls, operation: "add" });
   addRemoveCls({ el: monthInput, clsName: inputErrCls, operation: "remove" });
   addRemoveCls({ el: monthLabel, clsName: labelErrCls, operation: "remove" });
@@ -64,6 +71,11 @@ const clearYearField = () => {
   const [yearInput] = document.getElementsByClassName(yearFieldCls);
   const [yearErrEl] = document.getElementsByClassName(yearErrCls);
   const [yearLabel] = document.getElementsByClassName(yearLabelCls);
+  addRemoveCls({
+    el: monthErrCls,
+    clsName: errorInputsCls,
+    operation: "remove",
+  });
   addRemoveCls({ el: yearErrEl, clsName: hiddenCls, operation: "add" });
   addRemoveCls({ el: yearInput, clsName: inputErrCls, operation: "remove" });
   addRemoveCls({ el: yearLabel, clsName: labelErrCls, operation: "remove" });
@@ -113,10 +125,10 @@ const dateInputsInitialization = () => {
 
 const addRemoveCls = ({ el, clsName, operation = "add" }) => {
   if (operation === "add") {
-    if (!el.classList.contains(clsName)) el.classList.add(clsName);
+    if (!el?.classList?.contains(clsName)) el.classList.add(clsName);
     return;
   }
-  if (el.classList.contains(clsName)) el.classList.remove(clsName);
+  if (el?.classList?.contains(clsName)) el.classList.remove(clsName);
 };
 
 const dayValidators = () => {
@@ -134,6 +146,12 @@ const dayValidators = () => {
     dayErrEl.innerText = msg;
     // makeVisibe(dayErrEl);
     addRemoveCls({ el: dayErrEl, clsName: hiddenCls, operation: "remove" });
+    addRemoveCls({
+      el: dayErrEl,
+      clsName: errorInputsCls,
+      operation: "add",
+    });
+
     addRemoveCls({ el: dayInput, clsName: inputErrCls, operation: "add" });
     addRemoveCls({ el: dayLabel, clsName: labelErrCls, operation: "add" });
   } else {
@@ -146,6 +164,11 @@ const dayValidators = () => {
       isValid = false;
       msg = "This number is invalid";
       dayErrEl.innerText = msg;
+      addRemoveCls({
+        el: dayErrEl,
+        clsName: errorInputsCls,
+        operation: "add",
+      });
       addRemoveCls({ el: dayErrEl, clsName: hiddenCls, operation: "remove" });
       addRemoveCls({ el: dayInput, clsName: inputErrCls, operation: "add" });
       addRemoveCls({ el: dayLabel, clsName: labelErrCls, operation: "add" });
@@ -170,6 +193,11 @@ const monthValidators = () => {
     isValid = false;
     msg = "This field is required";
     monthErrEl.innerText = msg;
+    addRemoveCls({
+      el: monthErrEl,
+      clsName: errorInputsCls,
+      operation: "add",
+    });
     addRemoveCls({ el: monthErrEl, clsName: hiddenCls, operation: "remove" });
     addRemoveCls({ el: monthInput, clsName: inputErrCls, operation: "add" });
     addRemoveCls({ el: monthLabel, clsName: labelErrCls, operation: "add" });
@@ -183,6 +211,11 @@ const monthValidators = () => {
       isValid = false;
       msg = "Must be a valid month";
       monthErrEl.innerText = msg;
+      addRemoveCls({
+        el: monthErrEl,
+        clsName: errorInputsCls,
+        operation: "add",
+      });
       addRemoveCls({ el: monthErrEl, clsName: hiddenCls, operation: "remove" });
       addRemoveCls({ el: monthInput, clsName: inputErrCls, operation: "add" });
       addRemoveCls({ el: monthLabel, clsName: labelErrCls, operation: "add" });
@@ -206,6 +239,11 @@ const yearValidators = () => {
     isValid = false;
     msg = "This field is required";
     yearErrEl.innerText = msg;
+    addRemoveCls({
+      el: yearErrEl,
+      clsName: errorInputsCls,
+      operation: "add",
+    });
     addRemoveCls({ el: yearErrEl, clsName: hiddenCls, operation: "remove" });
     addRemoveCls({ el: yearInput, clsName: inputErrCls, operation: "add" });
     addRemoveCls({ el: yearLabel, clsName: labelErrCls, operation: "add" });
@@ -220,6 +258,11 @@ const yearValidators = () => {
       isValid = false;
       msg = "Must be in the past";
       yearErrEl.innerText = msg;
+      addRemoveCls({
+        el: yearErrEl,
+        clsName: errorInputsCls,
+        operation: "add",
+      });
       addRemoveCls({ el: yearErrEl, clsName: hiddenCls, operation: "remove" });
       addRemoveCls({ el: yearInput, clsName: inputErrCls, operation: "add" });
       addRemoveCls({ el: yearLabel, clsName: labelErrCls, operation: "add" });
@@ -252,6 +295,7 @@ const validate = () => {
       isValid = false;
       msg = "This number is invalid";
       dayErrEl.innerText = msg;
+      console.log("here");
       addRemoveCls({ el: dayErrEl, clsName: hiddenCls, operation: "remove" });
       addRemoveCls({ el: dayInput, clsName: inputErrCls, operation: "add" });
       addRemoveCls({ el: dayLabel, clsName: labelErrCls, operation: "add" });
@@ -266,42 +310,39 @@ const validate = () => {
 };
 
 const makeCalculations = () => {
-  const [userDay] = document.getElementsByClassName(dayFieldCls);
-  const [userMonth] = document.getElementsByClassName(monthFieldCls);
-  const [userYear] = document.getElementsByClassName(yearFieldCls);
+  const [userDayInput] = document.getElementsByClassName(dayFieldCls);
+  const [userMonthInput] = document.getElementsByClassName(monthFieldCls);
+  const [userYearInput] = document.getElementsByClassName(yearFieldCls);
 
-  const userDate = userYear.value + "-" + userMonth.value + "-" + userDay.value;
+  const birthDate = new Date(
+    userYearInput.value + "-" + userMonthInput.value + "-" + userDayInput.value,
+  );
+  const today = new Date();
 
-  // Convert birthdate and currentDate to Date objects
-  const birthDateObject = new Date(userDate);
-  // const currentDateObject = new Date("2023-11-15");
-  const currentDateObject = new Date();
+  let age = today.getFullYear() - birthDate.getFullYear();
+  let months = today.getMonth() - birthDate.getMonth();
+  let days = today.getDate() - birthDate.getDate();
 
-  //
-  // // Calculate the difference in years, months, and days
-  let ageYears =
-    currentDateObject.getFullYear() - birthDateObject.getFullYear();
-  let ageMonths = 0;
-  let ageDays = 0;
-
-  if (currentDateObject.getDate() < birthDateObject.getDate()) {
-    ageMonths =
-      Math.abs(currentDateObject.getMonth() - birthDateObject.getMonth()) - 1;
-    const prevMont = new Date(
-      currentDateObject.getFullYear(),
-      currentDateObject.getMonth(),
-      0,
-    );
-    const prevMonthDays = prevMont.getDate();
-    ageDays =
-      prevMonthDays - (birthDateObject.getDate() - currentDateObject.getDate());
-    console.log("days: " + ageDays);
-  } else {
-    ageMonths = currentDateObject.getMonth() - birthDateObject.getMonth();
-    ageDays = currentDateObject.getDate() - birthDateObject.getDate();
+  // Adjust for month and day
+  if (months < 0 || (months === 0 && days < 0)) {
+    age--;
+    months += 12; // Months in a year
   }
 
-  return { years: ageYears, months: ageMonths, days: ageDays };
+  if (days < 0) {
+    // Adjust days based on the previous month
+    const previousMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+    days += previousMonth.getDate();
+    months--;
+
+    // If months become negative due to days adjustment, adjust the year and months
+    if (months < 0) {
+      age--;
+      months += 12;
+    }
+  }
+
+  return { years: age, months: months, days: days };
 };
 
 const showResults = ({ years, months, days }) => {
@@ -313,7 +354,7 @@ const showResults = ({ years, months, days }) => {
   resultYearsField.innerText = years;
   resultMonthsField.innerText = months;
   resultDaysField.innerText = days;
-  console.log(years, months, days);
+  // console.log(years, months, days);
 };
 
 const calcAge = () => {
