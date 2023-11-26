@@ -1,10 +1,10 @@
-import { initCalcAge } from "/js/calcAge.js";
+import { initCalcAge } from "./js/calcAge.js";
 
 const init = () => {
   try {
     initCalcAge();
   } catch (error) {
-      console.log(error.message);
+    console.log(error.message);
   }
 };
 
