@@ -2,26 +2,37 @@
   //width: 70%;
   display: flex;
   flex-direction: column;
-  max-width: 60%;
+  max-width: 90%;
   height: 60rem;
   background-color: $white;
   margin: 8rem auto;
   border-radius: 1rem;
   border-bottom-right-radius: 15rem;
+  position: relative;
 
 
   &__separator-and-circle {
     border: none;
     display: flex;
+    @include respond(phone) {
+      margin-top: 5rem;
+    }
   }
 
   &__separator-item-line {
     width: 75%;
     align-self: center;
+    @include respond(phone) {
+      width: 95%;
+    }
   }
 
   &__separator-item-circle {
-    width: 25%;
+    @include respond(phone) {
+      position: absolute;
+      left: 40%;
+      top: 23%;
+    }
   }
 
   &__line {
@@ -29,9 +40,10 @@
     height: 0.1rem;
     color: $gray-light;
     background-color: $gray-light;
-    //border: .1px solid $gray-light;
-    //width: 100%;
     margin-left: 4.5rem;
+    @include respond(phone) {
+      margin-left: 3rem;
+    }
   }
 
   &__separator-circle {
@@ -39,6 +51,11 @@
     height: 10rem;
     width: 10rem;
     border-radius: 50%;
+
+    @include respond(phone) {
+      height: 8rem;
+      width: 8rem;
+    }
 
     &:hover {
       background-color: $black-off;
@@ -49,6 +66,10 @@
   &__circle-figure {
     height: 10rem;
     width: 10rem;
+    @include respond(phone) {
+      height: 8rem;
+      width: 8rem;
+    }
   }
 
   &__calc-result {
@@ -59,12 +80,23 @@
     font-size: 7rem;
     line-height: 8rem;
     padding-left: 4.5rem;
-    //border: 1px solid coral;
+
+    @include respond(phone) {
+      margin-top: 8rem;
+      font-size: 700%;
+    }
+
+    @include respond(small-phone) {
+      font-size: 500%;
+    }
   }
 
   &__span-result {
     font-size: 7.5rem;
     color: $purple;
+    @include respond(small-phone) {
+      font-size: 120%;
+    }
   }
 
 }
