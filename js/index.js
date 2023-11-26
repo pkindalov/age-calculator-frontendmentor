@@ -1,4 +1,5 @@
-import { initCalcAge } from "/js/calcAge.js";
+// import { initCalcAge } from "/js/calcAge.js";
+import { initCalcAge } from "https://pkindalov.github.io/age-calculator-frontendmentor/js/calcAge.js";
 // import { initCalcAge } from "https://pkindalov.github.io/age-calculator-frontendmentor/js/js/calcAge.js";
 
 const init = () => {
